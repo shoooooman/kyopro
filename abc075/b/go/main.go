@@ -6,14 +6,11 @@ func main() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
-	status := make([][]rune, h)
+	status := make([]string, h)
 	for i := 0; i < h; i++ {
 		var s string
 		fmt.Scan(&s)
-		status[i] = make([]rune, w)
-		for j, c := range s {
-			status[i][j] = c
-		}
+		status[i] = s
 	}
 
 	count := make([][]int, h)
@@ -24,6 +21,10 @@ func main() {
 	y := []int{-1, 0, 1}
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
+			if status[i][j] == '#' {
+				continue
+			}
+
 			cnt := 0
 			for _, dx := range x {
 				for _, dy := range y {
