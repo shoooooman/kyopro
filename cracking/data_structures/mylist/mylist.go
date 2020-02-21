@@ -36,6 +36,78 @@ func (list *LinkedList) Add(n *Node) {
 	list.Length++
 }
 
+// InsertAfter inserts a new node n after the node indexed k
+func (list *LinkedList) InsertAfter(k int, n *Node) *Node {
+	if list == nil {
+		fmt.Println("list is nil.")
+		os.Exit(1)
+	}
+	if k < 0 {
+		fmt.Println("InsertAfter: the index must be positive.")
+		os.Exit(1)
+	} else if k > list.Length-1 {
+		fmt.Println("InsertAfter: the index is out of the range.")
+		os.Exit(1)
+	}
+
+	now := list.Head
+	if now == nil {
+		fmt.Println("InsertAfter: list is empty.")
+		os.Exit(1)
+	}
+
+	if k == list.Length-1 {
+		list.Tail.Next = n
+		list.Tail = n
+		list.Length++
+		return n
+	}
+
+	for i := 0; i < k; i++ {
+		now = now.Next
+	}
+	n.Next = now.Next
+	now.Next = n
+	list.Length++
+	return n
+}
+
+// InsertBefore inserts a new node n before the node indexed k
+func (list *LinkedList) InsertBefore(k int, n *Node) *Node {
+	if list == nil {
+		fmt.Println("list is nil.")
+		os.Exit(1)
+	}
+	if k < 0 {
+		fmt.Println("InsertAfter: the index must be positive.")
+		os.Exit(1)
+	} else if k > list.Length-1 {
+		fmt.Println("InsertAfter: the index is out of the range.")
+		os.Exit(1)
+	}
+
+	now := list.Head
+	if now == nil {
+		fmt.Println("InsertAfter: list is empty.")
+		os.Exit(1)
+	}
+
+	if k == 0 {
+		n.Next = list.Head
+		list.Head = n
+		list.Length++
+		return n
+	}
+
+	for i := 0; i < k-1; i++ {
+		now = now.Next
+	}
+	n.Next = now.Next
+	now.Next = n
+	list.Length++
+	return n
+}
+
 // Remove deletes a element of index of the argument
 func (list *LinkedList) Remove(k int) {
 	if list == nil {
@@ -108,5 +180,11 @@ func GenLinkedList(num int) *LinkedList {
 // 	list.Show()
 //
 // 	list.Remove(1)
+// 	list.Show()
+//
+// 	list.InsertAfter(list.Length-1, &Node{11, nil})
+// 	list.Show()
+//
+// 	list.InsertBefore(0, &Node{12, nil})
 // 	list.Show()
 // }
