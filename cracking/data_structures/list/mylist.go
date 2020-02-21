@@ -1,8 +1,10 @@
-package main
+package mylist
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
 // Node is one element of the list
@@ -86,22 +88,25 @@ func (list *LinkedList) Show() {
 	fmt.Println()
 }
 
-func genLinkedList(num int) *LinkedList {
+// GenLinkedList generates an example list
+func GenLinkedList(num int) *LinkedList {
 	list := &LinkedList{nil, nil, 0}
+	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < num; i++ {
-		n := &Node{i, nil}
+		// n := &Node{i, nil}
+		n := &Node{rand.Intn(num), nil}
 		list.Add(n)
 	}
 	return list
 }
 
-func main() {
-	list := genLinkedList(10)
-	list.Show()
-
-	list.Add(&Node{10, nil})
-	list.Show()
-
-	list.Remove(1)
-	list.Show()
-}
+// func main() {
+// 	list := GenLinkedList(10)
+// 	list.Show()
+//
+// 	list.Add(&Node{10, nil})
+// 	list.Show()
+//
+// 	list.Remove(1)
+// 	list.Show()
+// }
