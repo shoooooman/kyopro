@@ -109,7 +109,7 @@ func (list *LinkedList) InsertBefore(k int, n *Node) *Node {
 }
 
 // Remove deletes a element of index of the argument
-func (list *LinkedList) Remove(k int) {
+func (list *LinkedList) Remove(k int) int {
 	if list == nil {
 		fmt.Println("list is nil")
 		os.Exit(1)
@@ -130,11 +130,14 @@ func (list *LinkedList) Remove(k int) {
 
 	if k == 0 {
 		list.Head = now.Next
+		list.Length--
+		return now.Val
 	}
 
 	for i := 0; i < k-1; i++ {
 		now = now.Next
 	}
+	rv := now.Next.Val
 	if k == list.Length-1 {
 		list.Tail = now
 		now.Next = nil
@@ -143,6 +146,7 @@ func (list *LinkedList) Remove(k int) {
 	}
 
 	list.Length--
+	return rv
 }
 
 // Show prints the all the elements from the head to the tail
