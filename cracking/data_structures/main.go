@@ -28,7 +28,7 @@ func main() {
 	fmt.Println()
 
 	/* ----------mystack---------- */
-	s := mystack.GenStack()
+	s := mystack.NewStack()
 
 	s.Push(0)
 	s.Push(1)

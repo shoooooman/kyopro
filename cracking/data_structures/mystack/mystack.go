@@ -42,10 +42,10 @@ func (s *Stack) Empty() bool {
 	return s.Size() == 0
 }
 
-// GenStack generates stack
-func GenStack() *Stack {
-	ss := Stack(make([]int, 0))
-	return &ss
+// NewStack generates stack
+func NewStack() *Stack {
+	s := new(Stack)
+	return s
 }
 
 // func main() {
