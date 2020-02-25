@@ -49,31 +49,31 @@ func NewStack() *Stack {
 }
 
 // func main() {
-// 	ss := Stack(make([]int, 0))
-// 	s := &ss
+// 	s := NewStack()
 //
 // 	s.Push(0)
 // 	s.Push(1)
-// 	fmt.Println(*s)
+// 	fmt.Println(*s) // [0 1]
+//
+// 	fmt.Println(s.Size())  // 2
+// 	fmt.Println(s.Empty()) // false
 //
 // 	if v, err := s.Pop(); err == nil {
-// 		fmt.Println(v)
+// 		fmt.Println(v) // 1
 // 	} else {
 // 		fmt.Println(err)
 // 		os.Exit(1)
 // 	}
+//
+// 	fmt.Println(*s) // [0]
 //
 // 	if v, err := s.Peek(); err == nil {
-// 		fmt.Println(v)
+// 		fmt.Println(v) // 0
 // 	} else {
 // 		fmt.Println(err)
 // 		os.Exit(1)
 // 	}
 //
-// 	fmt.Println(*s)
-// 	fmt.Println(s.Size())
-// 	fmt.Println(s.Empty())
 // 	s.Pop()
-// 	s.Pop()
-// 	fmt.Println(s.Empty())
+// 	fmt.Println(s.Empty()) // true
 // }
