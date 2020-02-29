@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/shoooooman/kyopro/cracking/data_structures/mygraph"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
 	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mystack"
@@ -56,6 +57,8 @@ func main() {
 	s.Pop()
 	fmt.Println(s.Empty())
 
+	fmt.Println()
+
 	/* ----------myqueue---------- */
 	q := myqueue.NewQueue()
 
@@ -69,4 +72,23 @@ func main() {
 		fmt.Errorf("queue is empty")
 	}
 	fmt.Println(*q)
+
+	fmt.Println()
+
+	/* ----------mygraph---------- */
+	graph := mygraph.NewGraph(5)
+	graph.Show()
+
+	start := graph.Nodes[0]
+	goal := graph.Nodes[3]
+	path, err := graph.FindPath(start, goal)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Printf("%v", start.Val)
+		for _, node := range path {
+			fmt.Printf("->%v", node.Val)
+		}
+		fmt.Println()
+	}
 }
