@@ -4,22 +4,22 @@ import "fmt"
 
 // Queue is for bfs
 type Queue struct {
-	data []int
+	data []interface{}
 }
 
 // Push adds a value to queue
-func (q *Queue) Push(v int) {
+func (q *Queue) Push(v interface{}) {
 	q.data = append(q.data, v)
 }
 
 // Pop removes the last element and return it
-func (q *Queue) Pop() (int, error) {
+func (q *Queue) Pop() (interface{}, error) {
 	if q.Empty() {
-		return 0, fmt.Errorf("queue is empty")
+		return nil, fmt.Errorf("queue is empty")
 	}
-	p := q.data[0]
+	v := q.data[0]
 	q.data = q.data[1:]
-	return p, nil
+	return v, nil
 }
 
 // Empty returns true if queue is empty
@@ -29,7 +29,7 @@ func (q *Queue) Empty() bool {
 
 // NewQueue generates a new queue
 func NewQueue() *Queue {
-	return &Queue{make([]int, 0)}
+	return &Queue{make([]interface{}, 0)}
 }
 
 // func main() {

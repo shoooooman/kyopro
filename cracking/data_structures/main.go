@@ -60,7 +60,7 @@ func main() {
 	q := myqueue.NewQueue()
 
 	q.Push(0)
-	q.Push(1)
+	q.Push("foo")
 	fmt.Println(*q)
 
 	if v, err := q.Pop(); err == nil {
