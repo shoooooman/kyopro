@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
+	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mystack"
 )
 
@@ -54,4 +55,18 @@ func main() {
 	s.Pop()
 	s.Pop()
 	fmt.Println(s.Empty())
+
+	/* ----------myqueue---------- */
+	q := myqueue.NewQueue()
+
+	q.Push(0)
+	q.Push(1)
+	fmt.Println(*q)
+
+	if v, err := q.Pop(); err == nil {
+		fmt.Println(v)
+	} else {
+		fmt.Errorf("queue is empty")
+	}
+	fmt.Println(*q)
 }
