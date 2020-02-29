@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/shoooooman/kyopro/cracking/data_structures/mybst"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mygraph"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
 	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
@@ -91,4 +92,14 @@ func main() {
 		}
 		fmt.Println()
 	}
+
+	fmt.Println()
+
+	/* ----------mybst---------- */
+	values := []int{0, 1, 2, 3, 4, 5, 6}
+	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
+	tree := mybst.GenBST(values)
+	mybst.PrintTree(tree)
+	mybst.PrintValues(tree.Root)
+	fmt.Println()
 }
