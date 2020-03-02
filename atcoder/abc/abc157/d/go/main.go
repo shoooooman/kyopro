@@ -45,50 +45,67 @@ type Node struct {
 	Neighs []*Node
 }
 
-// Path represents a path from start to goal
-type Path struct {
-	Goal *Node
-	Path []*Node
-}
-
 // Show shows a graph
 func (g *Graph) Show() {
 	nodes := g.Nodes
 	for _, node := range nodes {
-		fmt.Printf("%v: ", node.Val)
+		fmt.Printf("%v: ", node.Val.(int)+1)
 		for _, neigh := range node.Neighs {
-			fmt.Printf("%v ", neigh.Val)
+			fmt.Printf("%v ", neigh.Val.(int)+1)
 		}
 		fmt.Println()
 	}
 }
 
-// FindPath finds a path from start to goal
-func (g *Graph) FindPath(start, goal *Node) ([]*Node, error) {
-	visited := make(map[*Node]bool)
+func dfs(g *Graph, node *Node, groups map[*Node]*Node) map[*Node]bool {
+	set := make(map[*Node]bool)
 	q := NewQueue()
-	q.Push(&Path{start, make([]*Node, 0)})
+	q.Push(node)
+	set[node] = true
 	for !q.Empty() {
 		src, _ := q.Pop()
-		if v, ok := src.(*Path); ok {
-			if v.Goal == goal {
-				return v.Path, nil
-			}
-			for _, neigh := range v.Goal.Neighs {
-				if !visited[neigh] {
-					path := append(v.Path, neigh)
-					q.Push(&Path{neigh, path})
-					visited[neigh] = true
+		if v, ok := src.(*Node); ok {
+			for _, neigh := range v.Neighs {
+				if !set[neigh] {
+					q.Push(neigh)
+					set[neigh] = true
+					groups[neigh] = node
 				}
 			}
 		}
 	}
-	return nil, fmt.Errorf("cannot find a path")
+	return set
 }
 
-type twoPeople struct {
-	from *Node
-	to   *Node
+func findSets(g *Graph) map[*Node]map[*Node]bool {
+	sets := make(map[*Node]map[*Node]bool)
+	groups := make(map[*Node]*Node)
+	nodes := g.Nodes
+	for _, node := range nodes {
+		if leader, ok := groups[node]; ok {
+			sets[node] = sets[leader]
+			continue
+		}
+
+		sets[node] = dfs(g, node, groups)
+		// sets[node] = make(map[*Node]bool)
+		// q := NewQueue()
+		// q.Push(node)
+		// sets[node][node] = true
+		// for !q.Empty() {
+		// 	src, _ := q.Pop()
+		// 	if v, ok := src.(*Node); ok {
+		// 		for _, neigh := range v.Neighs {
+		// 			if !sets[node][neigh] {
+		// 				q.Push(neigh)
+		// 				sets[node][neigh] = true
+		// 				groups[neigh] = node
+		// 			}
+		// 		}
+		// 	}
+		// }
+	}
+	return sets
 }
 
 func main() {
@@ -99,55 +116,46 @@ func main() {
 		people[i] = &Node{i, make([]*Node, 0)}
 	}
 
-	friends := make(map[twoPeople]bool)
-
 	for i := 0; i < m; i++ {
 		var a, b int
 		fmt.Scan(&a, &b)
 
 		people[a-1].Neighs = append(people[a-1].Neighs, people[b-1])
 		people[b-1].Neighs = append(people[b-1].Neighs, people[a-1])
-		first := twoPeople{people[a-1], people[b-1]}
-		second := twoPeople{people[b-1], people[a-1]}
-		friends[first] = true
-		friends[second] = true
-	}
-
-	for i := 0; i < k; i++ {
-		var c, d int
-		fmt.Scan(&c, &d)
-
-		first := twoPeople{people[c-1], people[d-1]}
-		second := twoPeople{people[d-1], people[c-1]}
-		friends[first] = true
-		friends[second] = true
 	}
 
 	g := &Graph{people}
-	// nodes := g.Nodes
-	// for _, node := range nodes {
-	// 	fmt.Printf("%v: ", node.Val)
-	// 	for _, neigh := range node.Neighs {
-	// 		fmt.Printf("%v ", neigh.Val)
+	// g.Show()
+
+	sets := findSets(g)
+	// for node, set := range sets {
+	// 	fmt.Printf("%v: ", node.Val.(int)+1)
+	// 	for e := range set {
+	// 		fmt.Printf("%v ", e.Val.(int)+1)
 	// 	}
 	// 	fmt.Println()
 	// }
 
-	for i := 0; i < n; i++ {
-		cnt := 0
-		for j := 0; j < n; j++ {
-			if i == j {
-				continue
-			}
-			first := twoPeople{people[i], people[j]}
-			if !friends[first] {
-				_, err := g.FindPath(people[i], people[j])
-				if err == nil {
-					cnt++
-				}
-			}
+	blocked := make(map[*Node]int)
+	for i := 0; i < k; i++ {
+		var c, d int
+		fmt.Scan(&c, &d)
+
+		setc := sets[people[c-1]]
+		if setc[people[d-1]] {
+			blocked[people[c-1]]++
 		}
-		fmt.Printf("%d ", cnt)
+
+		setd := sets[people[d-1]]
+		if setd[people[c-1]] {
+			blocked[people[d-1]]++
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		pi := people[i]
+		set := sets[pi]
+		fmt.Printf("%v ", len(set)-len(pi.Neighs)-blocked[pi]-1)
 	}
 	fmt.Println()
 }
