@@ -118,10 +118,10 @@ func main() {
 	}
 
 	for i := 0; i < m; i++ {
-		a, b := nextInt(), nextInt()
+		a, b := nextInt()-1, nextInt()-1
 
-		people[a-1].Neighs = append(people[a-1].Neighs, people[b-1])
-		people[b-1].Neighs = append(people[b-1].Neighs, people[a-1])
+		people[a].Neighs = append(people[a].Neighs, people[b])
+		people[b].Neighs = append(people[b].Neighs, people[a])
 	}
 
 	g := &Graph{people}
@@ -138,16 +138,16 @@ func main() {
 
 	blocked := make(map[*Node]int)
 	for i := 0; i < k; i++ {
-		c, d := nextInt(), nextInt()
+		c, d := nextInt()-1, nextInt()-1
 
-		setc := sets[people[c-1]]
-		if setc[people[d-1]] {
-			blocked[people[c-1]]++
+		setc := sets[people[c]]
+		if setc[people[d]] {
+			blocked[people[c]]++
 		}
 
-		setd := sets[people[d-1]]
-		if setd[people[c-1]] {
-			blocked[people[d-1]]++
+		setd := sets[people[d]]
+		if setd[people[c]] {
+			blocked[people[d]]++
 		}
 	}
 

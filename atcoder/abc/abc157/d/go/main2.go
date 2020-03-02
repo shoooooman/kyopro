@@ -83,10 +83,10 @@ func main() {
 
 	friends := make(map[int]int)
 	for i := 0; i < m; i++ {
-		a, b := nextInt(), nextInt()
-		uf.Unite(a-1, b-1)
-		friends[a-1]++
-		friends[b-1]++
+		a, b := nextInt()-1, nextInt()-1
+		uf.Unite(a, b)
+		friends[a]++
+		friends[b]++
 	}
 
 	// sizes := make([]int, n)
@@ -97,10 +97,10 @@ func main() {
 
 	blocks := make([]int, n)
 	for i := 0; i < k; i++ {
-		c, d := nextInt(), nextInt()
-		if uf.Same(c-1, d-1) {
-			blocks[c-1]++
-			blocks[d-1]++
+		c, d := nextInt()-1, nextInt()-1
+		if uf.Same(c, d) {
+			blocks[c]++
+			blocks[d]++
 		}
 	}
 
