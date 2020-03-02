@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+/* Solution using BFS */
+
 // Queue is for bfs
 type Queue struct {
 	data []interface{}
