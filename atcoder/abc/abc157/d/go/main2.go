@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
 
 /* Solution using UnionFind */
 
@@ -60,15 +65,25 @@ func (uf *UnionFind) Size(x int) int {
 	return uf.Sizes[uf.Root(x)]
 }
 
+var sc = bufio.NewScanner(os.Stdin)
+
+func nextInt() int {
+	sc.Scan()
+	i, e := strconv.Atoi(sc.Text())
+	if e != nil {
+		panic(e)
+	}
+	return i
+}
+
 func main() {
-	var n, m, k int
-	fmt.Scan(&n, &m, &k)
+	sc.Split(bufio.ScanWords)
+	n, m, k := nextInt(), nextInt(), nextInt()
 	uf := NewUnionFind(n)
 
 	friends := make(map[int]int)
 	for i := 0; i < m; i++ {
-		var a, b int
-		fmt.Scan(&a, &b)
+		a, b := nextInt(), nextInt()
 		uf.Unite(a-1, b-1)
 		friends[a-1]++
 		friends[b-1]++
@@ -82,8 +97,7 @@ func main() {
 
 	blocks := make([]int, n)
 	for i := 0; i < k; i++ {
-		var c, d int
-		fmt.Scan(&c, &d)
+		c, d := nextInt(), nextInt()
 		if uf.Same(c-1, d-1) {
 			blocks[c-1]++
 			blocks[d-1]++
