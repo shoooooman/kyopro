@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 /* Solution using BFS */
@@ -84,43 +87,38 @@ func findSets(g *Graph) map[*Node]map[*Node]bool {
 	groups := make(map[*Node]*Node)
 	nodes := g.Nodes
 	for _, node := range nodes {
+		// groupの中ですでにsetを求めている要素があればそれを再利用
 		if leader, ok := groups[node]; ok {
 			sets[node] = sets[leader]
 			continue
 		}
-
 		sets[node] = dfs(g, node, groups)
-		// sets[node] = make(map[*Node]bool)
-		// q := NewQueue()
-		// q.Push(node)
-		// sets[node][node] = true
-		// for !q.Empty() {
-		// 	src, _ := q.Pop()
-		// 	if v, ok := src.(*Node); ok {
-		// 		for _, neigh := range v.Neighs {
-		// 			if !sets[node][neigh] {
-		// 				q.Push(neigh)
-		// 				sets[node][neigh] = true
-		// 				groups[neigh] = node
-		// 			}
-		// 		}
-		// 	}
-		// }
 	}
 	return sets
 }
 
+var sc = bufio.NewScanner(os.Stdin)
+
+func nextInt() int {
+	sc.Scan()
+	i, e := strconv.Atoi(sc.Text())
+	if e != nil {
+		panic(e)
+	}
+	return i
+}
+
 func main() {
-	var n, m, k int
-	fmt.Scan(&n, &m, &k)
+	sc.Split(bufio.ScanWords)
+	n, m, k := nextInt(), nextInt(), nextInt()
+
 	people := make([]*Node, n)
 	for i := 0; i < n; i++ {
 		people[i] = &Node{i, make([]*Node, 0)}
 	}
 
 	for i := 0; i < m; i++ {
-		var a, b int
-		fmt.Scan(&a, &b)
+		a, b := nextInt(), nextInt()
 
 		people[a-1].Neighs = append(people[a-1].Neighs, people[b-1])
 		people[b-1].Neighs = append(people[b-1].Neighs, people[a-1])
@@ -140,8 +138,7 @@ func main() {
 
 	blocked := make(map[*Node]int)
 	for i := 0; i < k; i++ {
-		var c, d int
-		fmt.Scan(&c, &d)
+		c, d := nextInt(), nextInt()
 
 		setc := sets[people[c-1]]
 		if setc[people[d-1]] {
