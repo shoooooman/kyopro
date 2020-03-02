@@ -6,14 +6,18 @@ import "fmt"
 
 // UnionFind is union find structure
 type UnionFind struct {
-	Par []int
+	Par   []int
+	Ranks []int
+	Sizes []int
 }
 
 // NewUnionFind generates a new union find
 func NewUnionFind(n int) *UnionFind {
-	uf := &UnionFind{make([]int, n)}
+	uf := &UnionFind{make([]int, n), make([]int, n), make([]int, n)}
 	for i := range uf.Par {
 		uf.Par[i] = i
+		uf.Ranks[i] = 0
+		uf.Sizes[i] = 1
 	}
 	return uf
 }
@@ -34,12 +38,26 @@ func (uf *UnionFind) Unite(x, y int) {
 	if rx == ry {
 		return
 	}
-	uf.Par[rx] = ry
+	if uf.Ranks[rx] < uf.Ranks[ry] {
+		uf.Par[rx] = ry
+		uf.Sizes[ry] += uf.Sizes[rx]
+	} else {
+		uf.Par[ry] = rx
+		uf.Sizes[rx] += uf.Sizes[ry]
+		if uf.Ranks[rx] == uf.Ranks[ry] {
+			uf.Ranks[rx]++
+		}
+	}
 }
 
 // Same returns true when the two are in the same group
 func (uf *UnionFind) Same(x, y int) bool {
 	return uf.Root(x) == uf.Root(y)
+}
+
+// Size returns size of a group where x belongs
+func (uf *UnionFind) Size(x int) int {
+	return uf.Sizes[uf.Root(x)]
 }
 
 func main() {
@@ -56,11 +74,11 @@ func main() {
 		friends[b-1]++
 	}
 
-	sizes := make([]int, n)
-	for i := range sizes {
-		r := uf.Root(uf.Par[i])
-		sizes[r]++
-	}
+	// sizes := make([]int, n)
+	// for i := range sizes {
+	// 	r := uf.Root(uf.Par[i])
+	// 	sizes[r]++
+	// }
 
 	blocks := make([]int, n)
 	for i := 0; i < k; i++ {
@@ -73,7 +91,7 @@ func main() {
 	}
 
 	for i := 0; i < n; i++ {
-		ans := sizes[uf.Root(i)] - friends[i] - blocks[i] - 1
+		ans := uf.Size(i) - friends[i] - blocks[i] - 1
 		fmt.Printf("%v ", ans)
 	}
 	fmt.Println()
