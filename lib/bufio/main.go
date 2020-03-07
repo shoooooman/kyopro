@@ -41,19 +41,17 @@ var (
 		sc := bufio.NewScanner(os.Stdin)
 		buf := make([]byte, initialBufSize)
 		sc.Buffer(buf, maxBufSize)
-		sc.Split(bufio.ScanWords)
+		sc.Split(bufio.ScanWords) // 行単位で読みたいときは消す
 		return sc
 	}()
 )
 
 // たくさん(>10^5)読み込みたいとき
-func nextLine() string {
+func nextString() string {
 	sc.Scan()
 	return sc.Text()
 }
 
-// スペース区切りで読み込む
-// sc.Split(bufio.ScanWords) が必要
 func nextInt() int {
 	sc.Scan()
 	i, e := strconv.Atoi(sc.Text())
@@ -63,9 +61,13 @@ func nextInt() int {
 	return i
 }
 
-func nextString() string {
+func nextFloat() float64 {
 	sc.Scan()
-	return sc.Text()
+	f, e := strconv.ParseFloat(sc.Text(), 64)
+	if e != nil {
+		panic(e)
+	}
+	return f
 }
 
 /* ----------------------------------------------- */
@@ -96,14 +98,17 @@ func main() {
 		fmt.Println(i, line)
 	}
 
-	s, t := nextLine(), nextLine()
-	fmt.Printf("s=%v\n", s)
-	fmt.Printf("t=%v\n", t)
+	s, t := nextString(), nextString()
+	fmt.Printf("s=%s\n", s)
+	fmt.Printf("t=%s\n", t)
 
-	// sc.Split(bufio.ScanWords)
-	// n, m := nextInt(), nextInt()
-	// fmt.Printf("n=%v\n", n)
-	// fmt.Printf("m=%v\n", m)
+	n, m := nextInt(), nextInt()
+	fmt.Printf("n=%d\n", n)
+	fmt.Printf("m=%d\n", m)
+
+	f, g := nextFloat(), nextFloat()
+	fmt.Printf("f=%f\n", f)
+	fmt.Printf("g=%f\n", g)
 
 	// $ go run input.go | go run main.go
 	str := readLine()
