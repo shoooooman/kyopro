@@ -7,11 +7,18 @@ import (
 	"strconv"
 )
 
+const (
+	initialBufSize = 10000
+	maxBufSize     = 1000000
+)
+
 /* ----------------------------------------------- */
 
 // 長くない行(< 64*1024)を一気に読み込む
 func getStdin() []string {
 	stdin := bufio.NewScanner(os.Stdin)
+	buf := make([]byte, initialBufSize)
+	stdin.Buffer(buf, maxBufSize)
 	lines := []string{}
 	for stdin.Scan() {
 		if err := stdin.Err(); err != nil {
@@ -19,12 +26,25 @@ func getStdin() []string {
 		}
 		lines = append(lines, stdin.Text())
 	}
+	if err := stdin.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+	}
 	return lines
 }
 
 /* ----------------------------------------------- */
 
-var sc = bufio.NewScanner(os.Stdin)
+// defaultだと64*1024しかない
+// var sc = bufio.NewScanner(os.Stdin)
+var (
+	sc = func() *bufio.Scanner {
+		sc := bufio.NewScanner(os.Stdin)
+		buf := make([]byte, initialBufSize)
+		sc.Buffer(buf, maxBufSize)
+		sc.Split(bufio.ScanWords)
+		return sc
+	}()
+)
 
 // たくさん(>10^5)読み込みたいとき
 func nextLine() string {
@@ -41,6 +61,11 @@ func nextInt() int {
 		panic(e)
 	}
 	return i
+}
+
+func nextString() string {
+	sc.Scan()
+	return sc.Text()
 }
 
 /* ----------------------------------------------- */
