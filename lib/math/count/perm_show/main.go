@@ -30,6 +30,7 @@ func perm(pat, str string, ret *[]string) {
 	}
 }
 
+// "12345"の順列を全て列挙
 func main() {
 	n := 5
 	str := ""
