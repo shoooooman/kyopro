@@ -9,6 +9,7 @@ import (
 	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
 	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/cracking/data_structures/mystack"
+	"github.com/shoooooman/kyopro/cracking/data_structures/mytree"
 )
 
 func main() {
@@ -98,8 +99,23 @@ func main() {
 	/* ----------mybst---------- */
 	values := []int{0, 1, 2, 3, 4, 5, 6}
 	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
-	tree := mybst.GenBST(values)
-	mybst.PrintTree(tree)
-	mybst.PrintValues(tree.Root)
+	bst := mybst.GenBST(values)
+	mybst.PrintTree(bst)
+	mybst.PrintValues(bst.Root)
 	fmt.Println()
+
+	fmt.Println()
+
+	/* ----------mytree---------- */
+	data := map[int][]int{
+		0: []int{1, 2},
+		1: []int{3, 4},
+		2: []int{5},
+	}
+	tree, err := mytree.GenTree(data)
+	if err != nil {
+		fmt.Println("cannot generate a random tree")
+		os.Exit(1)
+	}
+	tree.Print()
 }
