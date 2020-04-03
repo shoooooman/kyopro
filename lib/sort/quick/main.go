@@ -23,7 +23,7 @@ func med3(x, y, z int) int {
 }
 
 func partition(data []int, left, right int) int {
-	pivot := med3(data[left], data[(left+right)/2], data[right])
+	pivot := med3(data[left], data[left+(right-left)/2], data[right])
 	for left <= right {
 		for data[left] < pivot {
 			left++
