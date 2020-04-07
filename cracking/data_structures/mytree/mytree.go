@@ -56,6 +56,7 @@ func GenTree(m map[int][]int, r int) (*Tree, error) {
 			nodes[parent] = pnode
 		}
 		for i, num := range children {
+			// -1は無視される; e.g. []int{-1, 5} -> 右の子だけ作られる
 			if num == -1 {
 				continue
 			}
