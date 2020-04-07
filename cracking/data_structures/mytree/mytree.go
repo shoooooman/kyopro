@@ -40,14 +40,14 @@ func (t *Tree) Print() {
 }
 
 // GenTree generates a tree from data
-func GenTree(m map[int][]int) (*Tree, error) {
+func GenTree(m map[int][]int, r int) (*Tree, error) {
 	if len(m) == 0 {
 		return nil, fmt.Errorf("genRandomTree: n must be larger than 0")
 	}
 
 	nodes := make(map[int]*Node)
-	root := &Node{0, nil, nil}
-	nodes[0] = root
+	root := &Node{r, nil, nil}
+	nodes[r] = root
 	for parent, children := range m {
 		pnode, ok := nodes[parent]
 		// 親ノードがなければ作成
@@ -81,7 +81,7 @@ func GenTree(m map[int][]int) (*Tree, error) {
 // 		1: []int{3, 4},
 // 		2: []int{5},
 // 	}
-// 	tree, err := GenTree(data)
+// 	tree, err := GenTree(data, 0)
 // 	if err != nil {
 // 		fmt.Println("cannot generate a random tree")
 // 		os.Exit(1)

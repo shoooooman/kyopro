@@ -112,7 +112,7 @@ func main() {
 		1: []int{3, 4},
 		2: []int{5},
 	}
-	tree, err := mytree.GenTree(data)
+	tree, err := mytree.GenTree(data, 0)
 	if err != nil {
 		fmt.Println("cannot generate a random tree")
 		os.Exit(1)
