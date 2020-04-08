@@ -6,27 +6,6 @@ import (
 	"github.com/shoooooman/kyopro/cracking/data_structures/mytree"
 )
 
-func dfs(node *mytree.Node, query int) *mytree.Node {
-	if node == nil {
-		return nil
-	}
-
-	if node.Val == query {
-		return node
-	}
-	if n := dfs(node.Left, query); n != nil {
-		return n
-	}
-	if n := dfs(node.Right, query); n != nil {
-		return n
-	}
-	return nil
-}
-
-func getNode(tree *mytree.Tree, query int) *mytree.Node {
-	return dfs(tree.Root, query)
-}
-
 func findMostLeft(node *mytree.Node) *mytree.Node {
 	if node == nil {
 		return nil
@@ -67,7 +46,7 @@ func main() {
 	tree, _ := mytree.GenTree(data, 8)
 	tree.Print()
 
-	node := getNode(tree, 6)
+	node := tree.GetNode(6)
 	next := findNext(node)
 	if next != nil {
 		fmt.Println(next.Val)
