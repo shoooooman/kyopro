@@ -118,4 +118,5 @@ func main() {
 		os.Exit(1)
 	}
 	tree.Print()
+	fmt.Println(tree.GetNode(2))
 }
