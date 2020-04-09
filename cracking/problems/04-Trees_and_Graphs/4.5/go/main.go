@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/mytree"
+	"github.com/shoooooman/kyopro/lib/data_structures/mytree"
 )
 
 /* solution1 */

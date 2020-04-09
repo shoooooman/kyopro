@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/mybst"
-	"github.com/shoooooman/kyopro/cracking/data_structures/mygraph"
-	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
-	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
-	"github.com/shoooooman/kyopro/cracking/data_structures/mystack"
-	"github.com/shoooooman/kyopro/cracking/data_structures/mytree"
+	"github.com/shoooooman/kyopro/lib/data_structures/mybst"
+	"github.com/shoooooman/kyopro/lib/data_structures/mygraph"
+	"github.com/shoooooman/kyopro/lib/data_structures/mylist"
+	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
+	"github.com/shoooooman/kyopro/lib/data_structures/mystack"
+	"github.com/shoooooman/kyopro/lib/data_structures/mytree"
 )
 
 func main() {

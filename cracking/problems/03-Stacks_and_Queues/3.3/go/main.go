@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/mystack"
+	"github.com/shoooooman/kyopro/lib/data_structures/mystack"
 )
 
 // SetOfStacks is a set of stacks

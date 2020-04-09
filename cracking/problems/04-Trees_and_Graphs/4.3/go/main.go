@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/mybst"
-	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
-	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
+	"github.com/shoooooman/kyopro/lib/data_structures/mybst"
+	"github.com/shoooooman/kyopro/lib/data_structures/mylist"
+	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
 )
 
 // QData is data for queue

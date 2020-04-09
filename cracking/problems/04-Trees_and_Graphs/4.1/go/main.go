@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/myqueue"
+	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
 )
 
 // Graph is a set of nodes

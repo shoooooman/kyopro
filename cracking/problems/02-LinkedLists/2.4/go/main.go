@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/shoooooman/kyopro/cracking/data_structures/mylist"
+	"github.com/shoooooman/kyopro/lib/data_structures/mylist"
 )
 
 /* xより小さい数は先頭から挿入していく
