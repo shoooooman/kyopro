@@ -100,7 +100,7 @@ func main() {
 	values := []int{0, 1, 2, 3, 4, 5, 6}
 	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
 	bst := mybst.GenBST(values)
-	mybst.PrintTree(bst)
+	bst.PrintTree()
 	mybst.PrintValues(bst.Root)
 	fmt.Println()
 

@@ -16,7 +16,7 @@ type QData struct {
 }
 
 // Solution using BFS
-func solveBFS(tree mybst.Tree, n int) []mylist.LinkedList {
+func solveBFS(tree *mybst.Tree, n int) []mylist.LinkedList {
 	depth := int(math.Log2(float64(n))) + 1
 	lists := make([]mylist.LinkedList, depth)
 
@@ -50,7 +50,7 @@ func dfs(lists []mylist.LinkedList, node *mybst.Node, depth int) {
 }
 
 // Solution using DFS
-func solveDFS(tree mybst.Tree, n int) []mylist.LinkedList {
+func solveDFS(tree *mybst.Tree, n int) []mylist.LinkedList {
 	depth := int(math.Log2(float64(n))) + 1
 	lists := make([]mylist.LinkedList, depth)
 

@@ -43,8 +43,8 @@ func printNode(node *Node) {
 }
 
 // PrintTree prints tree
-func PrintTree(tree Tree) {
-	root := tree.Root
+func (t *Tree) PrintTree() {
+	root := t.Root
 	printNode(root)
 	fmt.Println()
 }
@@ -70,15 +70,15 @@ func addChildren(values []int) *Node {
 }
 
 // GenBST generates a binary tree with values
-func GenBST(values []int) Tree {
+func GenBST(values []int) *Tree {
 	root := addChildren(values)
-	return Tree{root}
+	return &Tree{root}
 }
 
 // func main() {
 // 	values := []int{0, 1, 2, 3, 4, 5, 6}
 // 	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
 // 	tree := GenBST(values)
-// 	PrintTree(tree)
+// 	tree.PrintTree()
 // 	PrintValues(tree.Root)
 // }
