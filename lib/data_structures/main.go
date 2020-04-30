@@ -1,11 +1,13 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 	"os"
 
 	"github.com/shoooooman/kyopro/lib/data_structures/mybst"
 	"github.com/shoooooman/kyopro/lib/data_structures/mygraph"
+	"github.com/shoooooman/kyopro/lib/data_structures/myheap"
 	"github.com/shoooooman/kyopro/lib/data_structures/mylist"
 	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/lib/data_structures/mystack"
@@ -119,4 +121,16 @@ func main() {
 	}
 	tree.Print()
 	fmt.Println(tree.GetNode(2))
+
+	fmt.Println()
+
+	/* ----------myheap---------- */
+	heapq := &myheap.IntHeap{1, 3, 2}
+	heap.Push(heapq, 4)
+	heap.Init(heapq)
+	heap.Push(heapq, 6)
+	heap.Push(heapq, 5)
+	for len(*heapq) > 0 {
+		fmt.Println(heapq.Top(), heap.Pop(heapq))
+	}
 }
