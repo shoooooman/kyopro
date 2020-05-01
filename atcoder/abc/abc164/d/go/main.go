@@ -2,30 +2,30 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
+func countMod(str string) map[int]int {
+	const div = 2019
+	prev := 0
+	digit := 1
+	count := make(map[int]int)
+	count[0] = 1
+	for i := len(str) - 1; i >= 0; i-- {
+		n := int(rune(str[i]) - '0')
+		mod := (n*digit + prev) % div
+		count[mod]++
+		prev = mod
+		digit *= 10
+		digit %= div
+	}
+	return count
+}
+
 func solve(str string) int {
-	const mod = 2019
+	count := countMod(str)
 	ans := 0
-	validEnd := make(map[int]int)
-	for i := 0; i < len(str)-3; i++ {
-		sizes := []int{3, 4}
-		for _, size := range sizes {
-			j := i + size
-			if j > len(str)-1 {
-				continue
-			}
-			num, _ := strconv.Atoi(str[i : j+1])
-			if num%mod == 0 {
-				validEnd[j]++
-				ans++
-				if v, ok := validEnd[i-1]; ok {
-					ans += v
-					validEnd[j] += v
-				}
-			}
-		}
+	for _, v := range count {
+		ans += v * (v - 1) / 2
 	}
 	return ans
 }
