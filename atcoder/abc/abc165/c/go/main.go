@@ -44,12 +44,14 @@ func dfs(seq []int, rst *[][]int) {
 		return
 	}
 
+	// 1つ前の要素の数 (最初の要素の場合は1)
 	var last int
 	if len(seq) == 0 {
 		last = 1
 	} else {
 		last = seq[len(seq)-1]
 	}
+	// last以上M以下の数を追加
 	for i := last; i <= m; i++ {
 		dfs(append(seq, i), rst)
 	}
