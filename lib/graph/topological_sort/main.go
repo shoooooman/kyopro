@@ -8,7 +8,7 @@ type dependency struct {
 }
 
 type node struct {
-	Name     interface{}
+	ID       interface{}
 	Children []*node
 	InBound  int // 入次数
 }
@@ -35,7 +35,7 @@ func topologicalSort(nodes map[interface{}]*node, dependencies []dependency) []*
 		nextTops := make([]*node, 0)
 		for _, top := range tops {
 			ans = append(ans, top)
-			visited[top.Name] = true
+			visited[top.ID] = true
 			for _, child := range top.Children {
 				child.InBound--
 				if child.InBound == 0 {
@@ -95,7 +95,7 @@ func main() {
 	}
 
 	for _, n := range rst {
-		fmt.Printf("%v ", n.Name)
+		fmt.Printf("%v ", n.ID)
 	}
 	fmt.Println()
 }
