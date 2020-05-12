@@ -12,6 +12,7 @@ import (
 	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/lib/data_structures/mystack"
 	"github.com/shoooooman/kyopro/lib/data_structures/mytree"
+	"github.com/shoooooman/kyopro/lib/data_structures/unionfind"
 )
 
 func main() {
@@ -133,4 +134,19 @@ func main() {
 	for len(*heapq) > 0 {
 		fmt.Println(heapq.Top(), heap.Pop(heapq))
 	}
+
+	fmt.Println()
+
+	/* ----------unionfind---------- */
+	n := 5
+	uf := unionfind.NewUnionFind(n)
+
+	fmt.Println(uf.Same(0, 1))
+	uf.Unite(0, 1)
+	fmt.Println(uf.Same(0, 1))
+	uf.Unite(2, 3)
+	fmt.Println(uf.Same(0, 2))
+	uf.Unite(0, 3)
+	fmt.Println(uf.Same(0, 2))
+	fmt.Println(uf.Size(0))
 }
