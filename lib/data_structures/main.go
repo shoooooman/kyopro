@@ -15,6 +15,27 @@ import (
 	"github.com/shoooooman/kyopro/lib/data_structures/unionfind"
 )
 
+// For myheap
+type intHeap []int
+
+func (h intHeap) Len() int           { return len(h) }
+func (h intHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h intHeap) Less(i, j int) bool { return h[i] < h[j] }
+
+// Push adds an element to heap
+func (h *intHeap) Push(e interface{}) {
+	*h = append(*h, e.(int))
+}
+
+// Pop removes min value from heap and return it
+func (h *intHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[:n-1]
+	return x
+}
+
 func main() {
 	/* ----------mylist---------- */
 	list := mylist.GenLinkedList(10)
@@ -126,13 +147,14 @@ func main() {
 	fmt.Println()
 
 	/* ----------myheap---------- */
-	heapq := &myheap.IntHeap{1, 3, 2}
-	heap.Push(heapq, 4)
-	heap.Init(heapq)
-	heap.Push(heapq, 6)
-	heap.Push(heapq, 5)
+	heapq := &intHeap{1, 3, 2}
+	myheap.Push(heapq, 4)
+	myheap.Init(heapq)
+	myheap.Push(heapq, 6)
+	myheap.Push(heapq, 5)
 	for len(*heapq) > 0 {
-		fmt.Println(heapq.Top(), heap.Pop(heapq))
+		top := (*heapq)[0]
+		fmt.Println(top, heap.Pop(heapq))
 	}
 
 	fmt.Println()
