@@ -8,10 +8,10 @@ func powRec(a, n int) int {
 		return 1
 	}
 	if n%2 == 0 {
-		d := pow(a, n/2)
+		d := powRec(a, n/2)
 		return d * d
 	}
-	return a * pow(a, n-1)
+	return a * powRec(a, n-1)
 }
 
 // bit演算版
