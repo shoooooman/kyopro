@@ -12,6 +12,7 @@ import (
 	"github.com/shoooooman/kyopro/lib/data_structures/myqueue"
 	"github.com/shoooooman/kyopro/lib/data_structures/mystack"
 	"github.com/shoooooman/kyopro/lib/data_structures/mytree"
+	"github.com/shoooooman/kyopro/lib/data_structures/trie"
 	"github.com/shoooooman/kyopro/lib/data_structures/unionfind"
 )
 
@@ -171,4 +172,12 @@ func main() {
 	uf.Unite(0, 3)
 	fmt.Println(uf.Same(0, 2))
 	fmt.Println(uf.Size(0))
+
+	fmt.Println()
+
+	/* ----------trie---------- */
+	dict := []string{"foo", "bar"}
+	tr := trie.NewTrie(dict)
+	fmt.Println(tr.Search("foo"))
+	fmt.Println(tr.Search("for"))
 }
