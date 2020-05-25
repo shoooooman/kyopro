@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// solution2 (dp, bottom up)
 func calcSteps(n int) int {
 	dp := make(map[int]int)
 	dp[0] = 1

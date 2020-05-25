@@ -4,6 +4,7 @@ import "fmt"
 
 var dp = make(map[int]int)
 
+// solution1 (dp, top down)
 func calcSteps(n int) int {
 	if n < 0 {
 		return 0
