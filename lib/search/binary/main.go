@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func binarySearch(data []int, query int) int {
-	left, right := 0, len(data)
+	left, right := 0, len(data)-1
 	for left <= right {
 		mid := left + (right-left)/2
 		if data[mid] == query {
