@@ -132,6 +132,19 @@ func FindMin(root *Node) *Node {
 	return n
 }
 
+// FindMax returns the max node of a subtree of the root
+func FindMax(root *Node) *Node {
+	if root == nil {
+		return nil
+	}
+
+	n := root
+	for n.Right != nil {
+		n = n.Right
+	}
+	return n
+}
+
 // Delete deletes a node
 func (t *Tree) Delete(node *Node) {
 	if node.Left == nil {
@@ -151,7 +164,7 @@ func (t *Tree) Delete(node *Node) {
 	}
 }
 
-// FindNext returns next node to the given node
+// FindNext returns the next node to the given node
 func FindNext(node *Node) *Node {
 	if node == nil {
 		return nil
@@ -164,6 +177,25 @@ func FindNext(node *Node) *Node {
 	n := node
 	p := node.Parent
 	for p != nil && p.Left != n {
+		n = p
+		p = p.Parent
+	}
+	return p
+}
+
+// FindPrev returns the previous node to the given node
+func FindPrev(node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if node.Left != nil {
+		return FindMax(node.Left)
+	}
+
+	n := node
+	p := node.Parent
+	for p != nil && p.Right != n {
 		n = p
 		p = p.Parent
 	}
