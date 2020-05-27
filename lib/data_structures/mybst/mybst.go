@@ -96,7 +96,9 @@ func (t *Tree) Insert(val int) *Node {
 	}
 
 	newNode := &Node{val, p, nil, nil}
-	if val <= p.Val {
+	if p == nil {
+		t.Root = newNode
+	} else if val <= p.Val {
 		p.Left = newNode
 	} else {
 		p.Right = newNode

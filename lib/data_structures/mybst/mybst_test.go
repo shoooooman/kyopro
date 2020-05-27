@@ -20,7 +20,7 @@ func TestGenBST(t *testing.T) {
 	}
 }
 
-func TestInsert(t *testing.T) {
+func TestInsert01(t *testing.T) {
 	values := []int{0, 1, 2, 3, 4, 5, 6}
 	bst := GenBST(values)
 
@@ -33,6 +33,22 @@ func TestInsert(t *testing.T) {
 	inserted = bst.Insert(2)
 	bst.PrintTree()
 	if inserted.Parent.Val != 2 {
+		t.Fatal("insert error")
+	}
+}
+
+func TestInsert02(t *testing.T) {
+	bst := Tree{nil}
+
+	inserted := bst.Insert(0)
+	bst.PrintTree()
+	if inserted.Parent != nil {
+		t.Fatal("insert error")
+	}
+
+	inserted = bst.Insert(1)
+	bst.PrintTree()
+	if inserted.Parent.Val != 0 {
 		t.Fatal("insert error")
 	}
 }
