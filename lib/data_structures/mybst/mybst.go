@@ -104,6 +104,53 @@ func (t *Tree) Insert(val int) *Node {
 	return newNode
 }
 
+// Move v to u's position
+// Note that u's info won't be changed
+func transparent(tree *Tree, u, v *Node) {
+	if u.Parent == nil {
+		tree.Root = v
+	} else if u == u.Parent.Left {
+		u.Parent.Left = v
+	} else {
+		u.Parent.Right = v
+	}
+	if v != nil {
+		v.Parent = u.Parent
+	}
+}
+
+// FindMin returns the min node of a subtree of the root
+func FindMin(root *Node) *Node {
+	if root == nil {
+		return nil
+	}
+
+	n := root
+	for n.Left != nil {
+		n = n.Left
+	}
+	return n
+}
+
+// Delete deletes a node
+func (t *Tree) Delete(node *Node) {
+	if node.Left == nil {
+		transparent(t, node, node.Right)
+	} else if node.Right == nil {
+		transparent(t, node, node.Left)
+	} else {
+		minNode := FindMin(node.Right)
+		if minNode.Parent != node {
+			transparent(t, minNode, minNode.Right)
+			minNode.Right = node.Right
+			minNode.Right.Parent = minNode
+		}
+		transparent(t, node, minNode)
+		minNode.Left = node.Left
+		minNode.Left.Parent = minNode
+	}
+}
+
 // func main() {
 // 	values := []int{0, 1, 2, 3, 4, 5, 6}
 // 	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
