@@ -93,3 +93,28 @@ func TestDelete03(t *testing.T) {
 		t.Fatal("delete error")
 	}
 }
+
+func TestFindNext(t *testing.T) {
+	values := []int{0, 1, 2, 3, 4, 5, 6}
+	bst := GenBST(values)
+
+	n1 := FindNext(bst.Root.Right)
+	if n1.Val != 6 {
+		t.Fatal("find next error")
+	}
+
+	n2 := FindNext(bst.Root.Left)
+	if n2.Val != 2 {
+		t.Fatal("find next error")
+	}
+
+	n3 := FindNext(bst.Root.Left.Right)
+	if n3.Val != 3 {
+		t.Fatal("find next error")
+	}
+
+	n4 := FindNext(bst.Root.Right.Left)
+	if n4.Val != 5 {
+		t.Fatal("find next error")
+	}
+}

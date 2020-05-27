@@ -151,6 +151,25 @@ func (t *Tree) Delete(node *Node) {
 	}
 }
 
+// FindNext returns next node to the given node
+func FindNext(node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if node.Right != nil {
+		return FindMin(node.Right)
+	}
+
+	n := node
+	p := node.Parent
+	for p != nil && p.Left != n {
+		n = p
+		p = p.Parent
+	}
+	return p
+}
+
 // func main() {
 // 	values := []int{0, 1, 2, 3, 4, 5, 6}
 // 	// values := []int{0, 1, 2, 3, 4, 5, 6, 7}
