@@ -4,9 +4,10 @@ import "fmt"
 
 // Node has its value and two children
 type Node struct {
-	Val   int
-	Left  *Node
-	Right *Node
+	Val    int
+	Parent *Node
+	Left   *Node
+	Right  *Node
 }
 
 // Tree has a root
@@ -30,7 +31,11 @@ func printNode(node *Node) {
 		return
 	}
 
-	fmt.Printf("%v: ", node.Val)
+	pval := -1
+	if node.Parent != nil {
+		pval = node.Parent.Val
+	}
+	fmt.Printf("%v (p=%v): ", node.Val, pval)
 	if node.Left != nil {
 		fmt.Printf("%v ", node.Left.Val)
 	}
@@ -49,30 +54,54 @@ func (t *Tree) PrintTree() {
 	fmt.Println()
 }
 
-// addChildren inserts nodes and create children recursively
-func addChildren(values []int) *Node {
+// insertNodes inserts nodes with sorted values
+// and keeps the balance
+func insertNodes(values []int, parent *Node) *Node {
 	l := len(values)
 	if l == 0 {
 		return nil
 	}
 
 	mid := l / 2
-	root := &Node{values[mid], nil, nil}
+	root := &Node{values[mid], parent, nil, nil}
 	if l == 1 {
 		return root
 	}
 	// lが偶数の場合、左部分木が大きくなるようにする
-	root.Left = addChildren(values[:mid])
+	root.Left = insertNodes(values[:mid], root)
 	if l > 2 {
-		root.Right = addChildren(values[mid+1:])
+		root.Right = insertNodes(values[mid+1:], root)
 	}
 	return root
 }
 
 // GenBST generates a binary tree with values
 func GenBST(values []int) *Tree {
-	root := addChildren(values)
+	root := insertNodes(values, nil)
 	return &Tree{root}
+}
+
+// Insert inserts a new node with value val
+func (t *Tree) Insert(val int) *Node {
+	root := t.Root
+	var p *Node
+	n := root
+	for n != nil {
+		p = n
+		if val <= n.Val {
+			n = n.Left
+		} else {
+			n = n.Right
+		}
+	}
+
+	newNode := &Node{val, p, nil, nil}
+	if val <= p.Val {
+		p.Left = newNode
+	} else {
+		p.Right = newNode
+	}
+	return newNode
 }
 
 // func main() {
