@@ -117,4 +117,14 @@ func TestFindNext(t *testing.T) {
 	if n4.Val != 5 {
 		t.Fatal("find next error")
 	}
+
+	n5 := FindNext(bst.Root.Right.Right)
+	if n5 != nil {
+		t.Fatal("find next error")
+	}
+
+	n6 := FindNext(bst.Root.Right.Right.Right)
+	if n6 != nil {
+		t.Fatal("find next error")
+	}
 }
