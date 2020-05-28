@@ -23,6 +23,8 @@ func TestBinarySearch(t *testing.T) {
 		{"test12", []int{1, 2, 2, 3, 5, 6}, 2, 1},
 		{"test13", []int{1, 2, 2, 2, 5, 6}, 2, 1},
 		{"test14", []int{1, 2, 2, 2, 5, 6}, 3, 4},
+		{"test15", []int{1, 2, 2, 2, 5, 6}, 1, 0},
+		{"test16", []int{1, 2, 2, 2, 5, 6}, 6, 5},
 	}
 
 	for _, tt := range tests {
