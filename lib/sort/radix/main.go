@@ -17,8 +17,9 @@ func pow(a, n int) int {
 // 計数ソート(安定ソートの例)
 func countingSort(data []int, digit, max int) {
 	counter := make([]int, max+1)
+	div := pow(10, digit)
 	for _, v := range data {
-		v /= pow(10, digit)
+		v /= div
 		v %= 10
 		counter[v]++
 	}
@@ -28,7 +29,7 @@ func countingSort(data []int, digit, max int) {
 	ans := make([]int, len(data))
 	for i := len(data) - 1; i >= 0; i-- {
 		v := data[i]
-		v /= pow(10, digit)
+		v /= div
 		v %= 10
 		ans[counter[v]-1] = data[i]
 		counter[v]--
