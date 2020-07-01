@@ -108,7 +108,7 @@ func (t *Tree) Insert(val int) *Node {
 
 // Move v to u's position
 // Note that u's info won't be changed
-func transparent(tree *Tree, u, v *Node) {
+func transplant(tree *Tree, u, v *Node) {
 	if u.Parent == nil {
 		tree.Root = v
 	} else if u == u.Parent.Left {
@@ -150,17 +150,17 @@ func FindMax(root *Node) *Node {
 // Delete deletes a node
 func (t *Tree) Delete(node *Node) {
 	if node.Left == nil {
-		transparent(t, node, node.Right)
+		transplant(t, node, node.Right)
 	} else if node.Right == nil {
-		transparent(t, node, node.Left)
+		transplant(t, node, node.Left)
 	} else {
 		minNode := FindMin(node.Right)
 		if minNode.Parent != node {
-			transparent(t, minNode, minNode.Right)
+			transplant(t, minNode, minNode.Right)
 			minNode.Right = node.Right
 			minNode.Right.Parent = minNode
 		}
-		transparent(t, node, minNode)
+		transplant(t, node, minNode)
 		minNode.Left = node.Left
 		minNode.Left.Parent = minNode
 	}
