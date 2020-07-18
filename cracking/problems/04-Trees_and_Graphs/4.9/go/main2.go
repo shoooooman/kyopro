@@ -41,14 +41,34 @@ func bstArrays(root *mytree.Node) [][]int {
 }
 
 func main() {
-	data := map[int][]int{
-		// 2: {1, 3},
-		5: {3, 8},
-		3: {2, 4},
-		// 8: {7, 9},
-	}
+	// data := map[int][]int{
+	// 	// 2: {1, 3},
+	// 	// 5: {3, 8},
+	// 	// 3: {2, 4},
+	// 	// 8: {7, 9},
+	// 	8:  {4, 12},
+	// 	4:  {2, 6},
+	// 	2:  {1, 3},
+	// 	6:  {5, 7},
+	// 	12: {10, 14},
+	// 	10: {9, 11},
+	// 	14: {13, 15},
+	// }
+	//
+	// t, _ := mytree.GenTree(data, 8)
+	// ans := bstArrays(t.Root)
 
-	t, _ := mytree.GenTree(data, 5)
-	ans := bstArrays(t.Root)
+	root := &mytree.Node{
+		4,
+		nil,
+		&mytree.Node{
+			2, nil, &mytree.Node{1, nil, nil, nil}, &mytree.Node{3, nil, nil, nil},
+		},
+		&mytree.Node{
+			6, nil, &mytree.Node{5, nil, nil, nil}, &mytree.Node{7, nil, nil, nil},
+		},
+	}
+	ans := bstArrays(root)
+
 	fmt.Println(ans)
 }
